@@ -16,6 +16,16 @@ io.on('connection',socket=>{
              socket.broadcast.emit('user-connected',names)
         })
        socket.on('send-chat-message',message=>{
-           socket.broadcast.emit('chat-message',message)
+        //    socket.broadcast.emit('chat-message',message)
+          socket.broadcast.emit('chat-message',{message:message,names:users[socket.id]})
        })
+
+       socket.on('disconnect',()=>{
+  
+        
+        socket.broadcast.emit('user-disconnected',users[socket.id])
+       delete users[socket.id]
+       
+   })
+
     })

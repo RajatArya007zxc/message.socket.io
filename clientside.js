@@ -13,15 +13,19 @@ socket.on('user-connected',names=>{
     apppendMessage(`${names} is connected`)
 })
 
+socket.io('user-disconnected',names=>{
+    apppendMessage(`${names} is disconnected`)
+})
 
 socket.on('chat-message',data=>{
     // console.log(data)
-    apppendMessage(data)
+    apppendMessage(`${data.names}:${data.message}`)
 })
 
 messageForm.addEventListener('submit',e=>{
     e.preventDefault();
     let message=messageInput.value;
+    apppendMessage(`You :${message}`)
     socket.emit('send-chat-message',message)
     messageInput.value=''
 
